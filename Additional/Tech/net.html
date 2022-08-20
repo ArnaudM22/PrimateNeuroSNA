@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module net</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>net</strong></big></big> (version 1, 19/09/22)</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Carnau%5Cdesktop%5Cprimateneurosna%5Ccode%5Cmodules%5Cnet.py">c:\users\arnau\desktop\primateneurosna\code\modules\net.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;module&nbsp;contains&nbsp;tools&nbsp;for&nbsp;the&nbsp;analysis&nbsp;of&nbsp;cerebral&nbsp;and&nbsp;social&nbsp;networks.<br>
+&nbsp;<br>
+It&nbsp;contains&nbsp;:<br>
+1.&nbsp;The&nbsp;"indiv_properties"&nbsp;function&nbsp;allowing&nbsp;the&nbsp;calculation&nbsp;of&nbsp;properties&nbsp;at&nbsp;<br>
+the&nbsp;level&nbsp;of&nbsp;individuals&nbsp;and&nbsp;dyads&nbsp;(eigenvector&nbsp;centrality,&nbsp;brokerage&nbsp;and&nbsp;distance).&nbsp;<br>
+2.&nbsp;The&nbsp;"net_properties"&nbsp;function&nbsp;allowing&nbsp;the&nbsp;calculation&nbsp;of&nbsp;properties&nbsp;at&nbsp;<br>
+the&nbsp;scale&nbsp;of&nbsp;the&nbsp;whole&nbsp;network&nbsp;(clustering&nbsp;and&nbsp;local&nbsp;efficiency).<br>
+3.&nbsp;The&nbsp;"comp_network_properties"&nbsp;function&nbsp;allowing&nbsp;the&nbsp;comparison&nbsp;of&nbsp;networks&nbsp;<br>
+between&nbsp;them&nbsp;(clustering&nbsp;and&nbsp;local&nbsp;efficiency&nbsp;differences,&nbsp;and&nbsp;deltacon&nbsp;if&nbsp;known&nbsp;node&nbsp;correspondence).&nbsp;<br>
+4.&nbsp;The&nbsp;"reciprocity"&nbsp;function&nbsp;to&nbsp;perform&nbsp;a&nbsp;reciprocity&nbsp;analysis&nbsp;for&nbsp;oriented&nbsp;networks.&nbsp;<br>
+5.&nbsp;The&nbsp;"postnet_NM"&nbsp;function&nbsp;allowing&nbsp;to&nbsp;&nbsp;build&nbsp;a&nbsp;list&nbsp;of&nbsp;adjacency&nbsp;matrices&nbsp;<br>
+of&nbsp;random&nbsp;networks&nbsp;according&nbsp;to&nbsp;the&nbsp;post-network&nbsp;Null&nbsp;Model.<br>
+&nbsp;<br>
+NB:&nbsp;There&nbsp;is&nbsp;also&nbsp;the&nbsp;"plot_net_properties",&nbsp;an&nbsp;helper&nbsp;function&nbsp;providing&nbsp;plots&nbsp;<br>
+for&nbsp;"net_properties"&nbsp;and&nbsp;"comp_network_properties".<br>
+&nbsp;<br>
+See&nbsp;the&nbsp;docstrings&nbsp;and&nbsp;the&nbsp;report&nbsp;for&nbsp;a&nbsp;detailed&nbsp;description.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="netrd.html">netrd</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="networkx.html">networkx</a><br>
+<a href="pandas.html">pandas</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+<a href="random.html">random</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-comp"><strong>comp</strong></a>(nets, null_models, deltacon=False, plot=True)</dt><dd><tt>Compares&nbsp;2&nbsp;networks&nbsp;(net&nbsp;1&nbsp;and&nbsp;net&nbsp;2)&nbsp;according&nbsp;to&nbsp;global&nbsp;properties&nbsp;and&nbsp;<br>
+deltacon&nbsp;(if&nbsp;known&nbsp;node&nbsp;correspondance).<br>
+&nbsp;<br>
+Subtracts&nbsp;the&nbsp;values&nbsp;of&nbsp;net&nbsp;2&nbsp;from&nbsp;net&nbsp;1,&nbsp;for&nbsp;both&nbsp;the&nbsp;network&nbsp;and&nbsp;the&nbsp;null&nbsp;models.<br>
+Compares&nbsp;the&nbsp;networks&nbsp;(basic&nbsp;and&nbsp;null&nbsp;models)&nbsp;with&nbsp;deltacon&nbsp;if&nbsp;known&nbsp;node&nbsp;correspondance.<br>
+A&nbsp;graphical&nbsp;representation&nbsp;is&nbsp;obtained&nbsp;with&nbsp;the&nbsp;plot_net_properties&nbsp;function.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+nets&nbsp;:&nbsp;list&nbsp;of&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;containing&nbsp;the&nbsp;adjacency&nbsp;matrices&nbsp;of&nbsp;the&nbsp;networks&nbsp;we&nbsp;want&nbsp;to&nbsp;analyze.<br>
+null_models&nbsp;:&nbsp;list&nbsp;of&nbsp;list&nbsp;of&nbsp;dataframe.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;list&nbsp;of&nbsp;null&nbsp;model&nbsp;networks&nbsp;adjacency&nbsp;matrices&nbsp;(in&nbsp;the&nbsp;same&nbsp;order&nbsp;as&nbsp;nets).<br>
+deltacon&nbsp;:&nbsp;bool,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Specifies&nbsp;whether&nbsp;deltacon&nbsp;is&nbsp;expected.&nbsp;The&nbsp;default&nbsp;is&nbsp;False.<br>
+plot&nbsp;:&nbsp;bool,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Specifies&nbsp;whether&nbsp;graphic&nbsp;representations&nbsp;are&nbsp;expected.&nbsp;The&nbsp;default&nbsp;is&nbsp;True.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+comp_dict&nbsp;:&nbsp;dict&nbsp;of&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Contains&nbsp;the&nbsp;lists&nbsp;of&nbsp;comparison&nbsp;measures&nbsp;for&nbsp;each&nbsp;metric.<br>
+p_val&nbsp;:&nbsp;dict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Contains&nbsp;the&nbsp;percentage&nbsp;of&nbsp;random&nbsp;network&nbsp;pairs&nbsp;that&nbsp;have&nbsp;a&nbsp;lower&nbsp;value&nbsp;than&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actual&nbsp;network&nbsp;for&nbsp;each&nbsp;metric.</tt></dd></dl>
+ <dl><dt><a name="-glob_properties"><strong>glob_properties</strong></a>(data, nm_list, plot=True)</dt><dd><tt>Computes&nbsp;properties&nbsp;at&nbsp;the&nbsp;level&nbsp;of&nbsp;the&nbsp;global&nbsp;network&nbsp;(clustering,&nbsp;local&nbsp;efficiency).<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;measures&nbsp;the&nbsp;global&nbsp;metrics&nbsp;for&nbsp;the&nbsp;network&nbsp;and&nbsp;each&nbsp;associated&nbsp;NM&nbsp;graph&nbsp;network.&nbsp;<br>
+The&nbsp;percentage&nbsp;of&nbsp;random&nbsp;networks&nbsp;with&nbsp;a&nbsp;value&nbsp;lower&nbsp;than&nbsp;the&nbsp;real&nbsp;network&nbsp;<br>
+for&nbsp;each&nbsp;metric&nbsp;is&nbsp;also&nbsp;returned&nbsp;as&nbsp;a&nbsp;p&nbsp;value.<br>
+A&nbsp;graphical&nbsp;representation&nbsp;is&nbsp;obtained&nbsp;with&nbsp;the&nbsp;plot_net_properties&nbsp;function.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;network&nbsp;of&nbsp;interest.<br>
+nm_list&nbsp;:&nbsp;list&nbsp;of&nbsp;dataframes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;null&nbsp;model&nbsp;networks&nbsp;adjacency&nbsp;matrices.<br>
+plot&nbsp;:&nbsp;bool,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;specifies&nbsp;whether&nbsp;graphic&nbsp;representations&nbsp;are&nbsp;expected.&nbsp;The&nbsp;default&nbsp;is&nbsp;True.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+properties_dict&nbsp;:&nbsp;dict&nbsp;of&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Contains&nbsp;the&nbsp;lists&nbsp;of&nbsp;measurements&nbsp;for&nbsp;each&nbsp;metric.<br>
+p_val&nbsp;:&nbsp;dict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Contains&nbsp;the&nbsp;percentage&nbsp;of&nbsp;random&nbsp;networks&nbsp;with&nbsp;a&nbsp;lower&nbsp;value&nbsp;than&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actual&nbsp;network&nbsp;for&nbsp;each&nbsp;metric&nbsp;(p&nbsp;value).</tt></dd></dl>
+ <dl><dt><a name="-indiv_properties"><strong>indiv_properties</strong></a>(data)</dt><dd><tt>Computes&nbsp;properties&nbsp;at&nbsp;the&nbsp;level&nbsp;of&nbsp;individuals&nbsp;and&nbsp;dyads&nbsp;(eigenvector&nbsp;centrality,&nbsp;brokerage&nbsp;and&nbsp;distance).<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;network&nbsp;of&nbsp;interest.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+centrality_brokerage&nbsp;:&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Eigenvector&nbsp;centrality&nbsp;and&nbsp;brokerage&nbsp;value&nbsp;for&nbsp;each&nbsp;node.<br>
+distance_dict&nbsp;:&nbsp;dict&nbsp;of&nbsp;dict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Distance&nbsp;between&nbsp;nodes.</tt></dd></dl>
+ <dl><dt><a name="-plot_net_properties"><strong>plot_net_properties</strong></a>(nline, ncol, properties_dict)</dt><dd><tt>helper&nbsp;function&nbsp;providing&nbsp;plots&nbsp;for&nbsp;"net_properties"&nbsp;and&nbsp;"comp_network_properties&nbsp;(helper&nbsp;function)</tt></dd></dl>
+ <dl><dt><a name="-postnet_NM"><strong>postnet_NM</strong></a>(data, seed=None, nb_iter=1000)</dt><dd><tt>Builds&nbsp;a&nbsp;list&nbsp;of&nbsp;adjacency&nbsp;matrices&nbsp;of&nbsp;random&nbsp;networks&nbsp;according&nbsp;to&nbsp;the&nbsp;pre-network&nbsp;Null&nbsp;Model.<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;works&nbsp;in&nbsp;3&nbsp;steps:&nbsp;<br>
+1.&nbsp;First,&nbsp;it&nbsp;produces&nbsp;random&nbsp;edge&nbsp;weights&nbsp;list.&nbsp;These&nbsp;lists&nbsp;are&nbsp;obtained&nbsp;by&nbsp;<br>
+performing&nbsp;a&nbsp;bootstrap&nbsp;random&nbsp;draw&nbsp;from&nbsp;the&nbsp;edge&nbsp;weights&nbsp;list&nbsp;of&nbsp;the&nbsp;basic&nbsp;network.&nbsp;<br>
+We&nbsp;produce&nbsp;as&nbsp;many&nbsp;lists&nbsp;of&nbsp;weights&nbsp;of&nbsp;random&nbsp;edges&nbsp;as&nbsp;there&nbsp;are&nbsp;random&nbsp;<br>
+networks&nbsp;(number&nbsp;defined&nbsp;by&nbsp;nb_iter).<br>
+2.&nbsp;We&nbsp;produce&nbsp;in&nbsp;parallel&nbsp;a&nbsp;list&nbsp;of&nbsp;random&nbsp;networks&nbsp;following&nbsp;the&nbsp;Erdős-Rényi&nbsp;model.<br>
+These&nbsp;networks&nbsp;have&nbsp;the&nbsp;same&nbsp;number&nbsp;of&nbsp;edges&nbsp;and&nbsp;nodes&nbsp;as&nbsp;our&nbsp;basic&nbsp;network.<br>
+3.&nbsp;We&nbsp;associate&nbsp;each&nbsp;list&nbsp;of&nbsp;weights&nbsp;of&nbsp;the&nbsp;random&nbsp;edges&nbsp;with&nbsp;each&nbsp;random&nbsp;network,&nbsp;<br>
+and&nbsp;we&nbsp;define&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;nodes&nbsp;of&nbsp;the&nbsp;random&nbsp;networks&nbsp;according&nbsp;to&nbsp;the&nbsp;nodes&nbsp;of&nbsp;the&nbsp;original&nbsp;network.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;network&nbsp;of&nbsp;interest.<br>
+seed&nbsp;:&nbsp;int,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Seed&nbsp;for&nbsp;random&nbsp;draws.&nbsp;The&nbsp;default&nbsp;is&nbsp;None.<br>
+nb_iter&nbsp;:&nbsp;int,&nbsp;optional<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Number&nbsp;of&nbsp;random&nbsp;networks&nbsp;to&nbsp;build.&nbsp;The&nbsp;default&nbsp;is&nbsp;1000.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+adj_list&nbsp;:&nbsp;list&nbsp;of&nbsp;dataframes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;random&nbsp;graphs&nbsp;adjacency&nbsp;matrix.</tt></dd></dl>
+ <dl><dt><a name="-reciprocity"><strong>reciprocity</strong></a>(data, nm_list)</dt><dd><tt>Compute&nbsp;reciprocity&nbsp;for&nbsp;directed&nbsp;weighted&nbsp;graph.<br>
+&nbsp;<br>
+The&nbsp;values&nbsp;are&nbsp;computed&nbsp;for&nbsp;the&nbsp;networks&nbsp;and&nbsp;associated&nbsp;NMs.<br>
+A&nbsp;graphical&nbsp;representation&nbsp;of&nbsp;the&nbsp;representation&nbsp;for&nbsp;NM&nbsp;graphs&nbsp;and&nbsp;basic&nbsp;network.<br>
+&nbsp;<br>
+Parameters<br>
+----------<br>
+data&nbsp;:&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Adjacency&nbsp;matrix&nbsp;of&nbsp;the&nbsp;directed&nbsp;weighted&nbsp;network&nbsp;of&nbsp;interest.<br>
+nm_list&nbsp;:&nbsp;list&nbsp;of&nbsp;dataframes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;List&nbsp;of&nbsp;NM&nbsp;networks&nbsp;adjacency&nbsp;matrices.<br>
+&nbsp;<br>
+Returns<br>
+-------<br>
+r_list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Lists&nbsp;of&nbsp;reciprocity&nbsp;measurement&nbsp;for&nbsp;the&nbsp;basic&nbsp;graph&nbsp;and&nbsp;NM.<br>
+p_val&nbsp;:&nbsp;dict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Contains&nbsp;the&nbsp;percentage&nbsp;of&nbsp;random&nbsp;networks&nbsp;with&nbsp;a&nbsp;lower&nbsp;value&nbsp;than&nbsp;the&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;actual&nbsp;network&nbsp;for&nbsp;each&nbsp;metric&nbsp;(p&nbsp;value).</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__contact__</strong> = 'arnaud.maupas@ens.fr'</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#7799ee">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Author</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#7799ee"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%">&nbsp;Arnaud&nbsp;Maupas&nbsp;</td></tr></table>
+</body></html>
